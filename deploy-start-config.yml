@@ -1,0 +1,47 @@
+# An exonum-launcher configuration file for deploying and starting a service instance
+# in the test network. Edit as needed.
+#
+# See:
+#  - start-testnet.sh
+#  - https://exonum.com/doc/version/latest/get-started/java-binding/#deploy-and-start-the-service
+networks:
+  - host: "127.0.0.1"
+    ssl: false
+    public-api-port: 3001
+    private-api-port: 3011
+  - host: "127.0.0.1"
+    ssl: false
+    public-api-port: 3002
+    private-api-port: 3012
+  - host: "127.0.0.1"
+    ssl: false
+    public-api-port: 3003
+    private-api-port: 3013
+  - host: "127.0.0.1"
+    ssl: false
+    public-api-port: 3004
+    private-api-port: 3014
+
+deadline_height: 200000
+
+runtimes:
+  java: 1
+
+plugins:
+  runtime:
+    java: "exonum_java_runtime_plugin.JavaDeploySpecLoader"
+
+artifacts:
+  car-registry:
+    runtime: java
+    name: "com.example.car/car-registry-service"
+    version: "1.0.0"
+    spec:
+      artifact_filename: "car-registry-service-1.0.0-artifact.jar"
+    action: deploy
+
+instances:
+  # A test service instance of "car-registry-service".
+  test-car-registry:
+    artifact: car-registry
+    action: start
